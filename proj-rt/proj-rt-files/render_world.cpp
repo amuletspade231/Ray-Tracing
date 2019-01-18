@@ -23,13 +23,15 @@ Render_World::~Render_World()
 Hit Render_World::Closest_Intersection(const Ray& ray)
 {
     double min_t = std::numeric_limits<double>::max();
-//    Hit closest_intersection = 
-//    for(Object* i : objects) {
-//        Hit hitOrMiss = i->Intersect(ray,-1);
-//	if (hitOrMiss.object != NULL && hitOrMiss.dist >= small_t && hitOrMiss < min_t) {
-//	    
-//    }
-    return {};
+    Hit closest_hit{}; 
+    for(Object* i : objects) {
+        Hit hitOrMiss = i->Intersection(ray,-1);
+	if (hitOrMiss.object != NULL && hitOrMiss.dist >= small_t && hitOrMiss.dist < min_t) {
+	    min_t = hitOrMiss.dist;
+	    closest_hit = hitOrMiss;
+	}
+    }
+    return closest_hit;
 }
 
 // set up the initial view ray and call
