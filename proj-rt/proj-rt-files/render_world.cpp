@@ -59,7 +59,11 @@ void Render_World::Render()
 vec3 Render_World::Cast_Ray(const Ray& ray,int recursion_depth)
 {
     vec3 color;
-    TODO; // determine the color here
+    if (Closest_Intersection(ray).object != NULL) {
+	
+    } else {
+	//color = background_shader->Shade_Surface({},{});
+    }
     return color;
 }
 
