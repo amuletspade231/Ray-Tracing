@@ -9,10 +9,10 @@
 Hit Plane::Intersection(const Ray& ray, int part) const
 {
     double denom = dot(normal, ray.direction);
-    if (denom > small_t) {
+    if (denom != 0) {
 	vec3 dist = x1 - ray.endpoint;
 	double t = dot(dist, normal) / denom;
-	if (t >= small_t ) {
+	if (t >= small_t) {
 	   return {this, t, part};
 	}
     }
