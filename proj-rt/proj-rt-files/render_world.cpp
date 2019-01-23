@@ -59,10 +59,14 @@ void Render_World::Render()
 vec3 Render_World::Cast_Ray(const Ray& ray,int recursion_depth)
 {
     vec3 color;
-    if (Closest_Intersection(ray).object != NULL) {
-	
+    Hit to_color = Closest_Intersection(ray);
+    vec3 intersection = ray.endpoint + to_color.dist*ray.direction;
+    Ray r;
+    vec3 v = r.Point(3.14);
+    if (to_color.object != NULL) {
+	color = to_color.object->material_shader->Shade_Surface(ray, intersection, to_color.object->Normal(intersection, to_color.part), recursion_depth);
     } else {
-	//color = background_shader->Shade_Surface({},{});
+	color = background_shader->Shade_Surface(r, v, v, recursion_depth);
     }
     return color;
 }
