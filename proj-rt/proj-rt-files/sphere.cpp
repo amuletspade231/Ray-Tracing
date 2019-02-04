@@ -14,7 +14,7 @@ Hit Sphere::Intersection(const Ray& ray, int part) const
     } else if (discriminant > 0) {
 	t0 = -0.5 * (b + sqrt(discriminant)) / a;
 	t1 = -0.5 * (b - sqrt(discriminant)) / a;
-	t = (t0 >= t1) ? t0 : t1;
+	t = (t0 < t1) ? t0 : t1;
     }
     if (t >= small_t) {
 	return {this, t, part};
@@ -25,7 +25,7 @@ Hit Sphere::Intersection(const Ray& ray, int part) const
 vec3 Sphere::Normal(const vec3& point, int part) const
 {
     vec3 normal;
-    normal = (point - center).normalized();
+    normal = ((point - center) / radius).normalized();
     return normal;
 }
 
