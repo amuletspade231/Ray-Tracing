@@ -51,8 +51,8 @@ Hit Mesh::Intersection(const Ray& ray, int part) const
 	    return {this, distance, part};
 	}
     } else {
-	for (int i = 0; i < triangles.size() && !Intersect_Triangle(ray, i, distance); ++i) {
-	    if ( i != triangles.size() ) {
+	for (int i = 0; i < triangles.size(); ++i) {
+	    if (Intersect_Triangle(ray, i, distance)) {
 		return {this, distance, i};
 	    }
 	}
@@ -102,7 +102,7 @@ bool Mesh::Intersect_Triangle(const Ray& ray, int tri, double& dist) const
 
     vec3 p = ray.Point(tri_hit.dist);
     vec3 v = b - a;
-    vec3 w = c - b;
+    vec3 w = c - a;
     vec3 y = p - a;
     vec3 u = ray.direction;
 
